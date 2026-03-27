@@ -19,6 +19,21 @@ export interface CreateProductPayload {
   stock: number;
 }
 
+export interface UpdateProductPayload {
+  name: string;
+  imageUrl?: string;
+  description: string;
+  price: number;
+}
+
+export interface UpdateProductStockPayload {
+  stock: number;
+}
+
+export interface UpdateProductStatusPayload {
+  status: "ON_SALE" | "OFF_SHELF";
+}
+
 export interface CartProduct {
   id: number;
   name: string;
@@ -38,4 +53,3 @@ export interface CartSummary {
   list: CartItem[];
   total: number;
 }
-
