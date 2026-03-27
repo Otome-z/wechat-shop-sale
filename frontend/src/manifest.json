@@ -1,0 +1,14 @@
+﻿{
+  "name": "wechat-shop-sale",
+  "appid": "__UNI__SHOP__DEMO",
+  "description": "wechat shop mini program",
+  "versionName": "0.1.0",
+  "versionCode": 100,
+  "transformPx": false,
+  "mp-weixin": {
+    "appid": "",
+    "setting": {
+      "urlCheck": false
+    }
+  }
+}
