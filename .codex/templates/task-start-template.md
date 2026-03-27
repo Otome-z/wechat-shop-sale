@@ -2,29 +2,45 @@
 
 请按以下流程工作：
 
-1. 先阅读 AGENTS.md
+1. 先阅读 `AGENTS.md`
 2. 再阅读相关 `.codex` 文档
 3. 先做需求拆解
-4. 再做开发
-5. 最后做 review
+4. 再做技术设计
+5. 用户确认后再开发
+6. 最后做 review
 
-当前技术栈固定为：
+当前项目技术栈约定为：
 
 前端：
+
 - Vue 3
-- Vite
+- uni-app
 - TypeScript
-- Vue Router
 - Pinia
 - Axios
+- Sass / SCSS
+- ESLint
+- Prettier
 
 后端：
+
 - Node.js
 - Express
 - TypeScript
-
-数据库：
-- MySQL
 - Prisma
 
-默认不包含发布和部署内容。
+数据库：
+
+- MySQL
+
+工程化：
+
+- Husky
+- lint-staged
+
+默认不包含：
+
+- 发布
+- 部署
+- CI/CD
+- 管理后台
