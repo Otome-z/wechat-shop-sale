@@ -24,6 +24,7 @@ model User {
 model Product {
   id          Int           @id @default(autoincrement())
   name        String
+  imageUrl    String        @default("https://pic4.zhimg.com/80/v2-5107688cc637cf3cf5044c4a475ba7ad_720w.webp")
   description String        @db.Text
   price       Decimal       @db.Decimal(10, 2)
   stock       Int
@@ -56,3 +57,4 @@ enum ProductStatus {
   ON_SALE
   OFF_SHELF
 }
+

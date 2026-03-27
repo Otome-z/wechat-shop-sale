@@ -1,6 +1,7 @@
 export interface ProductItem {
   id: number;
   name: string;
+  imageUrl: string;
   description: string;
   price: number;
   stock: number;
@@ -12,6 +13,7 @@ export interface ProductItem {
 
 export interface CreateProductPayload {
   name: string;
+  imageUrl?: string;
   description: string;
   price: number;
   stock: number;
@@ -36,3 +38,4 @@ export interface CartSummary {
   list: CartItem[];
   total: number;
 }
+

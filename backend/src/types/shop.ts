@@ -1,5 +1,6 @@
 export interface CreateProductInput {
   name: string;
+  imageUrl?: string;
   description: string;
   price: number;
   stock: number;
@@ -8,3 +9,4 @@ export interface CreateProductInput {
 export interface UpdateCartItemInput {
   quantity: number;
 }
+

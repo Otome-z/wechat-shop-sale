@@ -3,9 +3,13 @@ import { reactive } from "vue";
 import { createProduct } from "@/api/product";
 import { useAuthStore } from "@/store/auth";
 
+const DEFAULT_PRODUCT_IMAGE_URL =
+  "https://pic4.zhimg.com/80/v2-5107688cc637cf3cf5044c4a475ba7ad_720w.webp";
+
 const authStore = useAuthStore();
 const form = reactive({
   name: "",
+  imageUrl: DEFAULT_PRODUCT_IMAGE_URL,
   description: "",
   price: 0,
   stock: 0,
@@ -29,6 +33,7 @@ async function handleSubmit() {
   try {
     await createProduct({
       name: form.name,
+      imageUrl: form.imageUrl,
       description: form.description,
       price: Number(form.price),
       stock: Number(form.stock),
@@ -52,6 +57,11 @@ async function handleSubmit() {
       <view class="field">
         <text class="label">商品名称</text>
         <input v-model="form.name" class="input" placeholder="例如 春季新品" />
+      </view>
+
+      <view class="field">
+        <text class="label">图片链接</text>
+        <input v-model="form.imageUrl" class="input" placeholder="请输入商品图片链接" />
       </view>
 
       <view class="field">
@@ -124,6 +134,7 @@ async function handleSubmit() {
   width: 100%;
   padding: 20rpx 24rpx;
   border-radius: 18rpx;
+  box-sizing: border-box;
   background: #f3f4f6;
 }
 

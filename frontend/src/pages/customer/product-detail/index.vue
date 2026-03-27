@@ -1,4 +1,4 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
 import { ref } from "vue";
 import { onLoad } from "@dcloudio/uni-app";
 import { addToCart } from "@/api/cart";
@@ -50,6 +50,7 @@ onLoad((options) => {
     <view v-if="loading" class="card detail-card">正在加载商品...</view>
 
     <view v-else-if="product" class="card detail-card">
+      <image class="detail-image" :src="product.imageUrl" mode="aspectFill" />
       <text class="title">{{ product.name }}</text>
       <text class="price">￥{{ product.price.toFixed(2) }}</text>
       <text class="meta">商家：{{ product.merchantName || "店铺商家" }}</text>
@@ -65,8 +66,16 @@ onLoad((options) => {
   padding: 32rpx;
 }
 
+.detail-image {
+  width: 100%;
+  height: 360rpx;
+  border-radius: 24rpx;
+  background: #e5e7eb;
+}
+
 .title {
   display: block;
+  margin-top: 24rpx;
   font-size: 46rpx;
   font-weight: 700;
 }

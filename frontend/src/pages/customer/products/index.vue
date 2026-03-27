@@ -1,4 +1,4 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
 import { onMounted, ref } from "vue";
 import BottomNav from "@/components/bottom-nav.vue";
 import { addToCart } from "@/api/cart";
@@ -59,6 +59,7 @@ onMounted(async () => {
     <view v-else class="product-list">
       <view v-for="item in products" :key="item.id" class="card product-card">
         <view @tap="goDetail(item.id)">
+          <image class="product-image" :src="item.imageUrl" mode="aspectFill" />
           <view class="product-row">
             <text class="product-name">{{ item.name }}</text>
             <text class="product-price">￥{{ item.price.toFixed(2) }}</text>
@@ -109,6 +110,13 @@ onMounted(async () => {
   padding: 28rpx;
 }
 
+.product-image {
+  width: 100%;
+  height: 280rpx;
+  border-radius: 20rpx;
+  background: #e5e7eb;
+}
+
 .product-row,
 .meta-row {
   display: flex;
@@ -117,6 +125,8 @@ onMounted(async () => {
 }
 
 .product-name {
+  flex: 1;
+  margin-top: 20rpx;
   font-size: 32rpx;
   font-weight: 700;
 }

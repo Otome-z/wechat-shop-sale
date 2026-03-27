@@ -4,8 +4,12 @@ import { prisma } from "../utils/prisma";
 import type { CreateProductInput } from "../types/shop";
 import type { UserRole } from "../types/auth";
 
+const DEFAULT_PRODUCT_IMAGE_URL =
+  "https://pic4.zhimg.com/80/v2-5107688cc637cf3cf5044c4a475ba7ad_720w.webp";
+
 const createProductSchema = z.object({
   name: z.string().min(1).max(50),
+  imageUrl: z.string().url().max(500).optional().or(z.literal("")),
   description: z.string().min(1).max(500),
   price: z.number().positive().max(999999),
   stock: z.number().int().min(0).max(999999)
@@ -14,6 +18,7 @@ const createProductSchema = z.object({
 function toProductDTO(product: {
   id: number;
   name: string;
+  imageUrl: string;
   description: string;
   price: { toNumber(): number };
   stock: number;
@@ -25,6 +30,7 @@ function toProductDTO(product: {
   return {
     id: product.id,
     name: product.name,
+    imageUrl: product.imageUrl,
     description: product.description,
     price: product.price.toNumber(),
     stock: product.stock,
@@ -81,6 +87,7 @@ export async function createProduct(merchantId: number, input: CreateProductInpu
   const product = await prisma.product.create({
     data: {
       name: payload.name,
+      imageUrl: payload.imageUrl || DEFAULT_PRODUCT_IMAGE_URL,
       description: payload.description,
       price: payload.price,
       stock: payload.stock,
