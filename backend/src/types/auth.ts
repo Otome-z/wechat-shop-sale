@@ -1,5 +1,8 @@
-﻿export interface AuthTokenPayload {
+export type UserRole = "merchant" | "customer";
+
+export interface AuthTokenPayload {
   userId: number;
+  role: UserRole;
 }
 
 export interface AuthUser {
@@ -8,6 +11,7 @@ export interface AuthUser {
   nickname: string;
   phone: string;
   avatar: string;
+  currentRole: UserRole;
 }
 
 export interface RegisterInput {
@@ -20,4 +24,5 @@ export interface RegisterInput {
 export interface LoginInput {
   username: string;
   password: string;
+  role: UserRole;
 }

@@ -1,4 +1,4 @@
-﻿import http from "./http";
+import http from "./http";
 import type { ApiResponse, AuthResult, AuthUser, LoginPayload, RegisterPayload } from "../types/user";
 
 export function login(payload: LoginPayload) {

@@ -1,4 +1,4 @@
-{
+﻿{
   "pages": [
     {
       "path": "pages/login/index",
@@ -10,6 +10,36 @@
       "path": "pages/register/index",
       "style": {
         "navigationBarTitleText": "注册"
+      }
+    },
+    {
+      "path": "pages/merchant/products/index",
+      "style": {
+        "navigationBarTitleText": "商家商品"
+      }
+    },
+    {
+      "path": "pages/merchant/product-create/index",
+      "style": {
+        "navigationBarTitleText": "上架商品"
+      }
+    },
+    {
+      "path": "pages/customer/products/index",
+      "style": {
+        "navigationBarTitleText": "商品"
+      }
+    },
+    {
+      "path": "pages/customer/product-detail/index",
+      "style": {
+        "navigationBarTitleText": "商品详情"
+      }
+    },
+    {
+      "path": "pages/customer/cart/index",
+      "style": {
+        "navigationBarTitleText": "购物车"
       }
     },
     {

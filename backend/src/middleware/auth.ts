@@ -1,8 +1,8 @@
-﻿import type { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { env } from "../config/env";
 import { sendError } from "../utils/http";
-import type { AuthTokenPayload } from "../types/auth";
+import type { AuthTokenPayload, UserRole } from "../types/auth";
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
@@ -20,4 +20,20 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
   } catch (error) {
     sendError(res, 401, "Invalid token");
   }
+}
+
+export function requireRole(role: UserRole) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    if (!req.auth) {
+      sendError(res, 401, "Unauthorized");
+      return;
+    }
+
+    if (req.auth.role !== role) {
+      sendError(res, 403, "Forbidden");
+      return;
+    }
+
+    next();
+  };
 }

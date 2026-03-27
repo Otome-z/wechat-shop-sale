@@ -1,6 +1,7 @@
 ﻿<script setup lang="ts">
 import { reactive } from "vue";
 import { useAuthStore } from "../../store/auth";
+import { getHomePathByRole } from "../../utils/navigation";
 
 const authStore = useAuthStore();
 const form = reactive({
@@ -18,7 +19,7 @@ async function handleRegister() {
 
   try {
     await authStore.register(form);
-    uni.reLaunch({ url: "/pages/profile/index" });
+    uni.reLaunch({ url: getHomePathByRole("customer") });
   } catch (error) {
     uni.showToast({ title: "注册失败", icon: "none" });
   }
@@ -33,7 +34,7 @@ function goLogin() {
   <view class="page-shell">
     <view class="header">
       <text class="title">创建账号</text>
-      <text class="subtitle">注册成功后直接进入我的页面</text>
+      <text class="subtitle">注册成功后默认进入客户模式</text>
     </view>
 
     <view class="card form-card">

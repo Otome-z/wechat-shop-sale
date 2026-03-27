@@ -1,4 +1,4 @@
-﻿import type { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { ZodError } from "zod";
 import { getProfile, loginUser, registerUser } from "../services/auth-service";
 import { sendError, sendSuccess } from "../utils/http";
@@ -49,7 +49,7 @@ export async function login(req: Request, res: Response) {
 
 export async function profile(req: Request, res: Response) {
   try {
-    const result = await getProfile(req.auth!.userId);
+    const result = await getProfile(req.auth!.userId, req.auth!.role);
     sendSuccess(res, result, "Profile loaded");
   } catch (error) {
     handleServiceError(res, error);

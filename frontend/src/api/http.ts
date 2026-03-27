@@ -1,5 +1,5 @@
-﻿import axios from "axios";
-import { clearToken, getToken } from "../utils/storage";
+import axios from "axios";
+import { clearAuthStorage, getToken } from "../utils/storage";
 
 const http = axios.create({
   baseURL: "http://localhost:3000/api",
@@ -22,7 +22,7 @@ http.interceptors.response.use(
     const status = error?.response?.status;
 
     if (status === 401) {
-      clearToken();
+      clearAuthStorage();
     }
 
     return Promise.reject(error);

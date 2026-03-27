@@ -1,10 +1,20 @@
 ﻿<script setup lang="ts">
 import { computed, onMounted } from "vue";
+import BottomNav from "../../components/bottom-nav.vue";
 import { useAuthStore } from "../../store/auth";
 
 const authStore = useAuthStore();
 const user = computed(() => authStore.user);
+const role = computed(() => authStore.role);
 const avatarText = computed(() => user.value?.nickname?.slice(0, 1) || "我");
+const roleLabel = computed(() =>
+  role.value === "merchant" ? "商家模式" : "客户模式",
+);
+const roleDescription = computed(() =>
+  role.value === "merchant"
+    ? "当前可管理自己的商品并执行上架。"
+    : "当前可浏览商品并管理购物车。",
+);
 
 onMounted(async () => {
   try {
@@ -22,31 +32,41 @@ function handleLogout() {
 </script>
 
 <template>
-  <view class="page-shell">
+  <view class="page-shell page-with-nav">
     <view class="card profile-card">
       <view class="avatar">{{ avatarText }}</view>
       <text class="nickname">{{ user?.nickname || "未登录用户" }}</text>
-      <text class="meta">用户 ID：{{ user?.id || "-" }}</text>
       <text class="meta">账号：{{ user?.username || "-" }}</text>
       <text class="meta">手机号：{{ user?.phone || "-" }}</text>
     </view>
 
     <view class="card section-card">
       <view class="section-row">
-        <text class="section-label">页面定位</text>
-        <text class="section-value">我的 / 个人信息</text>
+        <text class="section-label">当前身份</text>
+        <text class="section-value">{{ roleLabel }}</text>
       </view>
       <view class="section-row">
-        <text class="section-label">登录状态</text>
-        <text class="section-value">已登录</text>
+        <text class="section-label">页面说明</text>
+        <text class="section-value section-value--multiline">{{
+          roleDescription
+        }}</text>
+      </view>
+      <view class="section-row">
+        <text class="section-label">用户 ID</text>
+        <text class="section-value">{{ user?.id || "-" }}</text>
       </view>
     </view>
 
     <button class="logout-btn" @tap="handleLogout">退出登录</button>
+    <BottomNav current-path="/pages/profile/index" />
   </view>
 </template>
 
 <style scoped lang="scss">
+.page-with-nav {
+  padding-bottom: 156rpx;
+}
+
 .profile-card {
   display: flex;
   flex-direction: column;
@@ -86,6 +106,7 @@ function handleLogout() {
 .section-row {
   display: flex;
   justify-content: space-between;
+  gap: 20rpx;
   padding: 20rpx 0;
   border-bottom: 2rpx solid #f3f4f6;
 }
@@ -100,6 +121,11 @@ function handleLogout() {
 
 .section-value {
   color: #111827;
+  text-align: right;
+}
+
+.section-value--multiline {
+  max-width: 420rpx;
 }
 
 .logout-btn {

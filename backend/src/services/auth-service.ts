@@ -1,9 +1,11 @@
-﻿import bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
 import { env } from "../config/env";
 import { prisma } from "../utils/prisma";
-import type { LoginInput, RegisterInput } from "../types/auth";
+import type { LoginInput, RegisterInput, UserRole } from "../types/auth";
+
+const roleSchema = z.enum(["merchant", "customer"]);
 
 const registerSchema = z.object({
   username: z.string().min(3).max(20),
@@ -14,26 +16,31 @@ const registerSchema = z.object({
 
 const loginSchema = z.object({
   username: z.string().min(3).max(20),
-  password: z.string().min(6).max(32)
+  password: z.string().min(6).max(32),
+  role: roleSchema
 });
 
-function signToken(userId: number) {
-  return jwt.sign({ userId }, env.jwtSecret, { expiresIn: "7d" });
+function signToken(userId: number, role: UserRole) {
+  return jwt.sign({ userId, role }, env.jwtSecret, { expiresIn: "7d" });
 }
 
-function toSafeUser(user: {
-  id: number;
-  username: string;
-  nickname: string;
-  phone: string;
-  avatar: string;
-}) {
+function toSafeUser(
+  user: {
+    id: number;
+    username: string;
+    nickname: string;
+    phone: string;
+    avatar: string;
+  },
+  role: UserRole
+) {
   return {
     id: user.id,
     username: user.username,
     nickname: user.nickname,
     phone: user.phone,
-    avatar: user.avatar
+    avatar: user.avatar,
+    currentRole: role
   };
 }
 
@@ -49,6 +56,7 @@ export async function registerUser(input: RegisterInput) {
   }
 
   const passwordHash = await bcrypt.hash(payload.password, 10);
+  const defaultRole: UserRole = "customer";
 
   const user = await prisma.user.create({
     data: {
@@ -61,8 +69,8 @@ export async function registerUser(input: RegisterInput) {
   });
 
   return {
-    token: signToken(user.id),
-    user: toSafeUser(user)
+    token: signToken(user.id, defaultRole),
+    user: toSafeUser(user, defaultRole)
   };
 }
 
@@ -84,12 +92,12 @@ export async function loginUser(input: LoginInput) {
   }
 
   return {
-    token: signToken(user.id),
-    user: toSafeUser(user)
+    token: signToken(user.id, payload.role),
+    user: toSafeUser(user, payload.role)
   };
 }
 
-export async function getProfile(userId: number) {
+export async function getProfile(userId: number, role: UserRole) {
   const user = await prisma.user.findUnique({
     where: { id: userId }
   });
@@ -98,5 +106,5 @@ export async function getProfile(userId: number) {
     throw new Error("User not found");
   }
 
-  return toSafeUser(user);
+  return toSafeUser(user, roleSchema.parse(role));
 }
