@@ -1,4 +1,4 @@
-﻿{
+{
   "pages": [
     {
       "path": "pages/login/index",
@@ -20,9 +20,14 @@
     }
   ],
   "globalStyle": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "店铺购物",
-    "navigationBarBackgroundColor": "#ffffff",
-    "backgroundColor": "#f6f7fb"
-  }
+    "backgroundColor": "@bgColor",
+    "backgroundColorBottom": "@bgColorBottom",
+    "backgroundColorTop": "@bgColorTop",
+    "backgroundTextStyle": "@bgTxtStyle",
+    "navigationBarBackgroundColor": "#000000",
+    "navigationBarTextStyle": "@navTxtStyle",
+    "navigationBarTitleText": "Uni Creator",
+    "navigationStyle": "custom"
+  },
+  "subPackages": []
 }
