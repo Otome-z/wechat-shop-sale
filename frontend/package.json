@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "wechat-shop-sale-frontend",
   "version": "0.1.0",
   "private": true,
@@ -8,15 +8,15 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@dcloudio/uni-app": "^3.0.0-4020920241122001",
+    "@dcloudio/uni-app": "vue3",
     "@dcloudio/uni-ui": "^1.5.7",
     "axios": "^1.8.4",
     "pinia": "^2.1.7",
     "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@dcloudio/types": "^3.4.16",
-    "@dcloudio/vite-plugin-uni": "^3.0.0-4020920241122001",
+    "@dcloudio/types": "^3.4.30",
+    "@dcloudio/vite-plugin-uni": "vue3",
     "@types/node": "^20.17.30",
     "typescript": "^5.8.3",
     "vite": "^5.4.18",

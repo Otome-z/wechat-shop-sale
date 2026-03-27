@@ -2,14 +2,10 @@
   "name": "wechat-shop-sale",
   "private": true,
   "version": "0.1.0",
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
   "scripts": {
-    "dev:frontend": "npm run dev:h5 --workspace frontend",
-    "dev:backend": "npm run dev --workspace backend",
-    "typecheck:frontend": "npm run typecheck --workspace frontend",
-    "build:backend": "npm run build --workspace backend"
+    "dev:frontend": "pnpm --filter wechat-shop-sale-frontend run dev:h5",
+    "dev:backend": "pnpm --filter wechat-shop-sale-backend run dev",
+    "typecheck:frontend": "pnpm --filter wechat-shop-sale-frontend run typecheck",
+    "build:backend": "pnpm --filter wechat-shop-sale-backend run build"
   }
 }
